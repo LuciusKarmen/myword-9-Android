@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_welcome_gradient"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="48dp">
+
+    <!-- App 名称 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="星辰网络"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <!-- 副标题 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:alpha="0.9"
+        android:text="欢迎体验 学生管理系统"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <!-- 描述文案 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:alpha="0.85"
+        android:text="畅享办公 · 简洁高效 · 安全可靠"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <!-- 立即体验按钮 -->
+    <Button
+        android:id="@+id/enter"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:background="@drawable/btn_primary"
+        android:elevation="4dp"
+        android:stateListAnimator="@null"
+        android:text="立即体验"
+        android:textColor="#F67B7B"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

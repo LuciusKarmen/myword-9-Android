@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="xgm">#F87E7E</color>
+    <color name="karmen">#AD5DFF</color>
+    <color name="xgm_">#FF4C4C</color>
+    <color name="karmen_">#901FFD</color>
+</resources>
