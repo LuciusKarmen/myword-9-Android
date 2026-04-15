@@ -7,9 +7,13 @@
         android:title="首页" />
 
     <item
-        android:id="@+id/nav_choose"
+        android:id="@+id/nav_student"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="点餐" />
+        android:title="学生" />
+    <item
+        android:id="@+id/nav_teacher"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="老师" />
 
     <item
         android:id="@+id/nav_our"

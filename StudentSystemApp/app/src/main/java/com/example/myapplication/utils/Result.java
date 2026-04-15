@@ -1,32 +1,71 @@
 package com.example.myapplication.utils;
+import android.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import okhttp3.*;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 
-import java.io.Serializable;
+public class Result {
 
-public class Result<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final String TAG = "Result";
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .build();
 
-    public int code;
-    public String message;
-    public T data;
+    private static final Gson gson = new Gson();
 
-    // 默认构造函数（Gson 需要）
-    public Result() {}
 
-    // 可选：如果你需要在 Java 中手动构造（比如模拟数据）
-    public static <T> Result<T> ok(T data) {
-        Result<T> result = new Result<>();
-        result.code = 200;
-        result.message = "操作成功";
-        result.data = data;
-        return result;
+    public static <T> void get(String url, final Type dataType, final HttpCallback<T> callback) {
+        Log.d(TAG, "GET 请求: " + url);
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "请求失败", e);
+                callback.onFailure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    if (!response.isSuccessful()) {
+                        callback.onHttpError(response.code());
+                        return;
+                    }
+
+                    String json = response.body().string();
+                    Log.d(TAG, "响应: " + json);
+
+
+                    Type resultType = new TypeToken<Result<T>>() {}.getType();
+                    Result<T> result = gson.fromJson(json, resultType);
+
+                    if (result.getCode() == 200) {
+                        callback.onSuccess(result.getData());
+                    } else {
+                        callback.onError(result.getCode(), result.getMessage());
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "解析失败", e);
+                    callback.onParseError(e);
+                } finally {
+                    response.close();
+                }
+            }
+        });
     }
 
-    public static <T> Result<T> error(int code, String message) {
-        Result<T> result = new Result<>();
-        result.code = code;
-        result.message = message;
-        result.data = null;
-        return result;
+    public interface HttpCallback<T> {
+        void onSuccess(T data);
+        void onFailure(IOException e);
+        void onHttpError(int httpCode);
+        void onError(int code, String message);      // 业务错误（如 code != 200）
+        void onParseError(Exception e);             // JSON 解析失败
     }
 }

@@ -1,10 +1,12 @@
 // HomeActivity.java
-package com.example.myapplication;
+package com.example.myapplication.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_admin);
 
         // 随机选择一句语录并显示
         TextView quoteTextView = findViewById(R.id.quote_text_view);
@@ -39,10 +41,14 @@ public class HomeActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 return true;
-            } else if (id == R.id.nav_choose) {
-                startActivity(new Intent(HomeActivity.this, ChooseActivity.class));
+            } else if (id == R.id.nav_student) {
+                startActivity(new Intent(HomeActivity.this, StudentActivity.class));
                 return true;
-            } else if (id == R.id.nav_our) {
+            }
+            else if (id == R.id.nav_teacher) {
+                startActivity(new Intent(HomeActivity.this, StudentActivity.class));
+                return true;
+            }else if (id == R.id.nav_our) {
                 startActivity(new Intent(HomeActivity.this, OurActivity.class));
                 return true;
             }

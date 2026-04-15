@@ -11,21 +11,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class RoleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_face);
-        Button button = findViewById(R.id.enter);
-        button.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_role);
+        View.OnClickListener goToLoginListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,RoleActivity.class));
+                startActivity(new Intent(RoleActivity.this, LoginActivity.class));
             }
-        })
-        ;
+        };
+
+
+        findViewById(R.id.btn_student).setOnClickListener(goToLoginListener);
+        findViewById(R.id.btn_teacher).setOnClickListener(goToLoginListener);
+        findViewById(R.id.btn_admin).setOnClickListener(goToLoginListener);
+
 
 
     }
